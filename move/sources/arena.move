@@ -43,13 +43,6 @@ public fun create_arena(hero: Hero, ctx: &mut TxContext) {
 
     transfer::share_object(arena);
 
-    // TODO: Create an arena object
-        // Hints:
-        // Use object::new(ctx) for unique ID
-        // Set warrior field to the hero parameter
-        // Set owner to ctx.sender()
-    // TODO: Emit ArenaCreated event with arena ID and timestamp (Don't forget to use ctx.epoch_timestamp_ms(), object::id(&arena))
-    // TODO: Use transfer::share_object() to make it publicly tradeable
 }
 
 #[allow(lint(self_transfer))]
@@ -64,7 +57,6 @@ public fun battle(hero: Hero, arena: Arena, ctx: &mut TxContext) {
     let warrior_id = object::id(&warrior);
 
     if (hero_power >= warrior_power) {
-        // Hero kazanır
         transfer::public_transfer(hero, sender);
         transfer::public_transfer(warrior, sender);
         
@@ -74,7 +66,6 @@ public fun battle(hero: Hero, arena: Arena, ctx: &mut TxContext) {
             timestamp: tx_context::epoch_timestamp_ms(ctx)
         });
     } else {
-        // Warrior (Arena sahibi) kazanır
         transfer::public_transfer(hero, owner);
         transfer::public_transfer(warrior, owner);
 
@@ -86,16 +77,6 @@ public fun battle(hero: Hero, arena: Arena, ctx: &mut TxContext) {
     };
 
     object::delete(id);
-    // TODO: Implement battle logic
-        // Hints:
-        // Destructure arena to get id, warrior, and owner
-    // TODO: Compare hero.hero_power() with warrior.hero_power()
-        // Hints: 
-        // If hero wins: both heroes go to ctx.sender()
-        // If warrior wins: both heroes go to battle place owner
-    // TODO:  Emit ArenaCompleted event with winner/loser IDs (Don't forget to use object::id(&warrior) or object::id(&hero) ). 
-        // Hints:  
-        // You have to emit this inside of the if else statements
-    // TODO: Delete the battle place ID 
+    
 }
 

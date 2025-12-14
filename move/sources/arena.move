@@ -43,7 +43,10 @@ public fun create_arena(hero: Hero, ctx: &mut TxContext) {
 
     transfer::share_object(arena);
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> 0fbd73c72abf588f25fc50b675acf9e0502d1aaf
 }
 
 #[allow(lint(self_transfer))]
@@ -58,7 +61,6 @@ public fun battle(hero: Hero, arena: Arena, ctx: &mut TxContext) {
     let warrior_id = object::id(&warrior);
 
     if (hero_power >= warrior_power) {
-        // Hero kazanır
         transfer::public_transfer(hero, sender);
         transfer::public_transfer(warrior, sender);
         
@@ -68,7 +70,6 @@ public fun battle(hero: Hero, arena: Arena, ctx: &mut TxContext) {
             timestamp: tx_context::epoch_timestamp_ms(ctx)
         });
     } else {
-        // Warrior (Arena sahibi) kazanır
         transfer::public_transfer(hero, owner);
         transfer::public_transfer(warrior, owner);
 
